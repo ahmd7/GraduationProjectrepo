@@ -2,7 +2,7 @@
 sudo apt update -y
 sudo apt install mariadb-server mariadb-client -y
 sudo systemctl start mariadb
-#systemctl status mariadb#
+#systemctl status mariadb
 #sudo mysql_secure_installation
 #mysql -u root -p
 #systemctl restart mariadb
