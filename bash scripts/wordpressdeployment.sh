@@ -15,8 +15,8 @@ sudo cp wp-config-sample.php wp-config.php
 #change the parameters
 sudo apt install mysql-server libapache2-mod-php -y
 sudo systemctl restart apache2
-#mysql
-#Database commands
-#CREATE DATABASE wordpress;
-#CREATE USER "wordpress"@"%" identified by "password";
-#GRANT ALL PRIVILEGES ON wordpress.* TO "wordpress"@"%";
+mysql -e "CREATE DATABASE wordpress;"
+mysql -e "CREATE USER "wordpress"@"%" identified by "password";"
+mysql -e "GRANT ALL PRIVILEGES ON wordpress.* TO "wordpress"@"%";"
+
+
