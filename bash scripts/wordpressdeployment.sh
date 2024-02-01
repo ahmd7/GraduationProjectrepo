@@ -19,4 +19,3 @@ mysql -e "CREATE DATABASE wordpress;"
 mysql -e "CREATE USER "wordpress"@"%" identified by "password";"
 mysql -e "GRANT ALL PRIVILEGES ON wordpress.* TO "wordpress"@"%";"
 
-
