@@ -8,8 +8,8 @@ sudo systemctl start mariadb
 #systemctl restart mariadb
 #mysql
 #Database commands
-mysql -e "CREATE DATABASE wordpress;"
-mysql -e "CREATE USER "wordpress"@"IP_of_wordpress" identified by "password";"
-mysql -e "GRANT ALL PRIVILEGES ON wordpress.* TO "wordpress"@"IP_of_wordpress";"
+sudo mysql -e "CREATE DATABASE wordpress;"
+sudo mysql -e "CREATE USER "wordpress"@"IP_of_wordpress" identified by "password";"
+sudo mysql -e "GRANT ALL PRIVILEGES ON wordpress.* TO "wordpress"@"IP_of_wordpress";"
 #vim /etc/mysql/mariadb.conf.d/50-server.cnf 
 #comment bind IP
