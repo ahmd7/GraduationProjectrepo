@@ -29,7 +29,7 @@ define( 'DB_USER', 'wordpress' );
 define( 'DB_PASSWORD', 'password' );
 
 /** Database hostname */
-define( 'DB_HOST', '13.60.4.27:3306' );
+define( 'DB_HOST', '172.31.21.75' );
 
 /** Database charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
@@ -37,8 +37,8 @@ define( 'DB_CHARSET', 'utf8' );
 /** The database collate type. Don't change this if in doubt. */
 define( 'DB_COLLATE', '' );
 
-define('WP_HOME', wordpress);
-define('WP_SITEURL', wordpress);
+define('WP_HOME', '16.170.226.72');
+define('WP_SITEURL', '16.170.226.72');
 
 /**#@+
  * Authentication unique keys and salts.
