@@ -29,7 +29,7 @@ define( 'DB_USER', 'wordpress' );
 define( 'DB_PASSWORD', 'password' );
 
 /** Database hostname */
-define( 'DB_HOST', getenv('DB_HOSTNAME') );
+define( 'DB_HOST', getenv('DB_IP') );
 
 /** Database charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
@@ -38,7 +38,7 @@ define( 'DB_CHARSET', 'utf8' );
 define( 'DB_COLLATE', '' );
 
 define('WP_HOME', getenv('HOST_IP'));
-define('WP_SITEURL', getenv('HOSTIP'));
+define('WP_SITEURL', getenv('HOST_IP'));
 
 /**#@+
  * Authentication unique keys and salts.
