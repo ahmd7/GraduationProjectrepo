@@ -1,0 +1,64 @@
+---
+- name: Install Docker
+  hosts: database
+  
+
+  tasks:
+    - name: Update apt package index
+      apt:
+        update_cache: yes
+      when: ansible_os_family == 'Debian'
+
+    - name: Install required packages for Docker
+      package:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - gnupg-agent
+        - software-properties-common
+      when: ansible_os_family == 'Debian'
+
+    - name: Add Docker's official GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+      when: ansible_os_family == 'Debian'
+
+    - name: Add Docker repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable
+        state: present
+      when: ansible_os_family == 'Debian'
+
+    - name: Update apt package index (again)
+      apt:
+        update_cache: yes
+      when: ansible_os_family == 'Debian'
+
+    - name: Install Docker CE
+      apt:
+        name: docker-ce
+        state: present
+      when: ansible_os_family == 'Debian'
+
+    - name: Install Docker CE_cli
+      apt:
+        name: docker-ce-cli
+        state: present
+      when: ansible_os_family == 'Debian'
+
+    - name: Install Docker Compose
+      pip:
+        name: docker-compose
+        state: present
+      when: ansible_os_family == 'Debian'
+
+    - name: Start Docker service
+      service:
+        name: docker
+        state: started
+      when: ansible_os_family == 'Debian'
+

@@ -1,0 +1,29 @@
+---
+- name: Setup Docker containers
+  hosts: [database]
+  tasks:
+    - name: Copy docker-compose.yml file
+      copy:
+        src: docker-compose-db.yml
+        dest: /docker_file/container/
+    - name: Create child directory inside parent directory
+      file:
+        path: /docker_file/container/docker/user-db
+        state: directory
+    - name: Start Docker containers
+      command: docker compose -f /docker_file/container/docker-compose-db.yml up
+
+- name: Setup Docker containers for AWS
+  hosts: [web]
+  tasks:
+    - name: Copy docker-compose.yml file
+      copy:
+        src: docker-compose.yml
+        dest: /docker_file/container/
+    - name: Create child directory inside parent directory
+      file:
+        path: /docker_file/container/docker/user-db
+        state: directory
+    - name: Start Docker containers
+      command: docker compose -f /docker_file/container/docker-compose.yml up
+      
