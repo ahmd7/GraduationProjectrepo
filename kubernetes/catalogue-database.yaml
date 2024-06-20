@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalogue-db
+  namespace: my-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: catalogue-db
+  template:
+    metadata:
+      labels:
+        app: catalogue-db
+    spec:
+      containers:
+      - name: catalogue-db
+        image: vhmds/micro-db
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-root-password
+              key: password
+        - name: MYSQL_ALLOW_EMPTY_PASSWORD
+          value: "true"
+        - name: MYSQL_DATABASE
+          value: socksdb
+        resources: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalogue-db
+  namespace: my-app
+spec:
+  selector:
+    app: catalogue-db
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306

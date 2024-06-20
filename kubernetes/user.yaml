@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user
+  namespace: my-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user
+  template:
+    metadata:
+      labels:
+        app: user
+    spec:
+      containers:
+      - name: user
+        image: weaveworksdemos/user:0.4.4
+        env:
+        - name: MONGO_HOST
+          value: user-db:27017
+        securityContext:
+          capabilities:
+            drop: ["ALL"]
+            add: ["NET_BIND_SERVICE"]
+          readOnlyRootFilesystem: true
+        resources: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user
+  namespace: my-app
+spec:
+  selector:
+    app: user
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

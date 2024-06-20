@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalogue
+  namespace: my-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: catalogue
+  template:
+    metadata:
+      labels:
+        app: catalogue
+    spec:
+      containers:
+      - name: catalogue
+        image: weaveworksdemos/catalogue:0.3.5
+        securityContext:
+          capabilities:
+            drop: ["ALL"]
+            add: ["NET_BIND_SERVICE"]
+          readOnlyRootFilesystem: false
+        resources: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalogue
+  namespace: my-app
+spec:
+  selector:
+    app: catalogue
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

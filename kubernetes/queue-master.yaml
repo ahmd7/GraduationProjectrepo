@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: queue-master
+  namespace: my-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: queue-master
+  template:
+    metadata:
+      labels:
+        app: queue-master
+    spec:
+      containers:
+      - name: queue-master
+        image: weaveworksdemos/queue-master:0.3.1
+        securityContext:
+          capabilities:
+            drop: ["ALL"]
+            add: ["NET_BIND_SERVICE"]
+          readOnlyRootFilesystem: true
+        volumeMounts:
+        - name: docker-sock
+          mountPath: /var/run/docker.sock
+          subPath: ""
+        - name: tmp
+          mountPath: /tmp
+          subPath: ""
+      volumes:
+      - name: docker-sock
+        hostPath:
+          path: /var/run/docker.sock
+      - name: tmp
+        emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: queue-master
+  namespace: my-app
+spec:
+  selector:
+    app: queue-master
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
